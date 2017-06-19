@@ -18,6 +18,8 @@ pipeline {
                 // Run tests in built container, copy out artifacts (required)
                 sh """
                     echo "TEST stage"
+                    date >> date.txt
+                    aws s3 cp date.txt s3://gophoton-stress/
                 """                
             }
         }
