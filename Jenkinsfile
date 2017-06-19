@@ -20,6 +20,9 @@ pipeline {
                     echo "TEST stage"
                     date >> date.txt
                     cat date.txt
+                    curl https://s3-us-west-2.amazonaws.com/gophoton-stress/hello.txt
+                    aws s3 cp s3://gophoton-stress/hello.txt .
+                    cat hello.txt
                     aws s3 cp date.txt s3://gophoton-stress/
                 """                
             }
