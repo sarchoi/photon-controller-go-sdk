@@ -21,7 +21,6 @@ pipeline {
                     date >> date.txt
                     cat date.txt
                     curl https://s3-us-west-2.amazonaws.com/gophoton-stress/hello.txt
-                    s3Upload(file:'date.txt', bucket:'gophoton-stress', path:'/test/date.txt')
                     aws s3 cp s3://gophoton-stress/hello.txt .
                     cat hello.txt
                     aws s3 cp date.txt s3://gophoton-stress/
