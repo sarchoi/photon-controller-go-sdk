@@ -12,20 +12,18 @@ pipeline {
                 """
             }
         }
-        stage('Test') {
+        stage('Test') {            
             steps {
-                awsIdentity()
-                withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'aws-jenkins', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
-                    sh """
-                        echo "TEST stage"
-                        date >> date.txt
-                        cat date.txt
-                        curl https://s3-us-west-2.amazonaws.com/gophoton-stress/hello.txt
-                        aws s3 cp s3://gophoton-stress/hello.txt .
-                        cat hello.txt
-                        aws s3 cp date.txt s3://gophoton-stress/test/date.txt                        
-                    """
-                }
+                echo 'Testing ${env.JOB_NAME}:${env.BUILD_ID} on ${env.JENKINS_URL}..'
+                sh """
+                    echo "TEST stage"
+                    date >> date.txt
+                    cat date.txt
+                    curl https://s3-us-west-2.amazonaws.com/gophoton-stress/hello.txt
+                    aws s3 cp s3://gophoton-stress/hello.txt .
+                    cat hello.txt
+                    aws s3 cp date.txt s3://gophoton-stress/test/date.txt                        
+                """
             }
         }
         stage('Publish') {
