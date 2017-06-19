@@ -19,6 +19,7 @@ pipeline {
                 sh """
                     echo "TEST stage"
                     date >> date.txt
+                    cat date.txt
                     aws s3 cp date.txt s3://gophoton-stress/
                 """                
             }
